@@ -9,6 +9,6 @@
 VAR1=${VAR1:-"Minor updates"}
 
 git add .
-git commit -m VAR1
+git commit -m "VAR1"
 git push
 
