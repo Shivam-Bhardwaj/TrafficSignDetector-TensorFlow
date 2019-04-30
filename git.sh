@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [ -z "${VARIABLE}" ]; then 
-    FOO='default'
+    'Minor Updates'='default'
 else 
-    FOO=${VARIABLE}
+    'Minor Updates'=${VARIABLE}
 fi
 
 git add .
-git commit -m "FOO"
+git commit -m "'Minor Updates'"
 git push
 
