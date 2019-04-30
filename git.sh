@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [ -z "${VARIABLE}" ]; then 
-    FOO='Random Updates'
+    message='Random Updates'
 else 
-    FOO=${VARIABLE}
+    message=${VARIABLE}
 fi
 
 git add .
