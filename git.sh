@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -z "${VARIABLE}" ]; then 
+    FOO='default'
+else 
+    FOO=${VARIABLE}
+fi
+
 git add .
-git commit -m "$1"
+git commit -m "FOO"
 git push
+
