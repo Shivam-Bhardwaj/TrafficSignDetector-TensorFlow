@@ -7,6 +7,6 @@ else
 fi
 
 git add .
-git commit -m "'Minor Updates'"
+git commit -m "Minor Updates"
 git push
 
