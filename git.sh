@@ -6,9 +6,9 @@
 #    message=${VARIABLE}
 #fi
 
-VAR1="${VAR1:-Minor updates}"
+exp="${VAR1:-Minor updates}"
 
 git add .
-git commit -m 'VAR1'
+git commit -m 'exp'
 git push
 
