@@ -3,6 +3,6 @@
 
 
 git add .
-git commit -m "${1:-'Minor Updates'}"
+git commit -m "${1:-Minor Updates}"
 git push
 
