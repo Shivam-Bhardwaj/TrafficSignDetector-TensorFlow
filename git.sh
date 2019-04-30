@@ -7,6 +7,6 @@ else
 fi
 
 git add .
-git commit -m "FOO"
+git commit -m FOO
 git push
 
