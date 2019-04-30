@@ -9,8 +9,6 @@
 #exp=${exp:-Minor updates}
 
 
-#
-
 git add .
 git commit -m "$1"
 git push
