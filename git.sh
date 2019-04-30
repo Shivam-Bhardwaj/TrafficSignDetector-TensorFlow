@@ -1,5 +1,5 @@
 #!/bin/bash
 
 git add .
-git commit -m "Minor Code Updates"
+git commit -m "$1"
 git push
