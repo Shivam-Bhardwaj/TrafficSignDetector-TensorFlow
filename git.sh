@@ -9,6 +9,6 @@
 exp="${VAR1:-Minor updates}"
 
 git add .
-git commit -m 'exp'
+git commit -m 'VAR1'
 git push
 
