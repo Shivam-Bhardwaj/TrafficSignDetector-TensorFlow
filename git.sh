@@ -12,6 +12,6 @@
 #
 
 git add .
-git commit -m "${message:-exp}"
+git commit -m "$message:exp"
 git push
 
