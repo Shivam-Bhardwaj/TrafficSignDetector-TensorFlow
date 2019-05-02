@@ -2,7 +2,7 @@
 
 ## Writeup
 
-### The following project is the *dsgdfg* 
+### The following project is the  
 
 ---
 
