@@ -1,187 +1,304 @@
-# **Traffic Sign Recognition** 
+## Advanced Lane Finding using OpenCV
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive) <img src="https://engineering.nyu.edu/sites/default/files/2019-01/tandon_long_color.png" alt="NYU Logo" width="130" height="whatever">
 
-## Writeup
+![Lanes Image](./examples/example_output.jpg)
 
-### The following project is the  
+The following project is a part of Udacity’s Self Driving car engineering NanoDegree program. The aim of project is to successfully find the radius of curvature as well as the vehicle offset from the lane.
 
+The Project
 ---
 
-**Build a Traffic Sign Recognition Project**
+The steps of this project are the following:
 
-The goals / steps of this project are the following:
-* Load the data set (see below for links to the project data set)
-* Explore, summarize and visualize the data set
-* Design, train and test a model architecture
-* Use the model to make predictions on new images
-* Analyze the softmax probabilities of the new images
-* Summarize the results with a written report
+* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
+* Apply a distortion correction to raw images.
+* Use color transforms, gradients, etc., to create a thresholded binary image.
+* Apply a perspective transform to rectify binary image ("birds-eye view").
+* Detect lane pixels and fit to find the lane boundary.
+* Determine the curvature of the lane and vehicle position with respect to center.
+* Warp the detected lane boundaries back onto the original image.
+* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position. 
 
+## The folder structure
 
-[//]: # "Image References"
+| Name of Folder     | Contains                                      |
+| ------------------ | --------------------------------------------- |
+| Assets             | Resources for README                          |
+| camera_cal         | Input images for camera calibration           |
+| undistorted_images | Undistorted images after camera calibration   |
+| test_images        | Test images for pipeline                      |
+| test_images_output | Output images after image thresholding        |
+| video_input        | Test videos for the final pipeline            |
+| video_output       | Test video output (6 seconds each)            |
+| video_output_final | Final output video folder (Full length video) |
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+## Prerequisites
 
+- Pip 
+- Python 3
+- Virtual Environment
 
+## Install instructions
 
-### Dataset and Repository
+`open terminal`
 
-1. Download the data set. The classroom has a link to the data set in the "Project Instructions" content. This is a pickled dataset in which we've already resized the images to 32x32. It contains a training, validation and test set.
-2. Clone the project, which contains the Ipython notebook and the writeup template.
-
-```sh
-git clone https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project
-cd CarND-Traffic-Sign-Classifier-Project
-jupyter notebook Traffic_Sign_Classifier.ipynb
+```bash
+$ git clone https://github.com/Shivam-Bhardwaj/AdvanceLaneFinding.git
+$ virtualenv --no-site-packages -p python3 venv 
+$ source venv/bin/activate
+$ cd AdvanceLaneFinding
+$ pip install -r requirements.txt
+$ jupyter notebook
 ```
 
+`open FinalCode.ipnyb`
 
+## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
-## Rubric Points
+#### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+------
 
----
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.    
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+The given README.md file is an extensive writeup of the project. It includes the code folder architecture, resources, test output, Jupyter Notebook etc. For any questions, please contact 
 
-### Data Set Summary & Exploration
+Shivam Bhardwaj 
 
-#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+ [LinkedIn](<https://www.linkedin.com/in/shivamnyu/>) [Instagram](https://www.instagram.com/lazy.shivam/) [Facebook](<https://www.facebook.com/shivambhardwaj2008>) [Github](https://github.com/Shivam-Bhardwaj)
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+Mail to shivam.bhardwaj@nyu.edu
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+### Camera Calibration
 
-#### 2. Include an exploratory visualization of the dataset.
+#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+The Camera calibration is taken care under the section of **Calibrating the camera**
 
-![alt text][image1]
+I started by reading a random calibration image from `camera_cal` folder to get the parameters of the images.
 
-### Design and Test a Model Architecture
+Using the following code snippet:
 
-#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+```python
+img = mpimg.imread('camera_cal/calibration11.jpg')
+image_shape = img.shape
 
-As a first step, I decided to convert the images to grayscale because ...
+# nx and ny are taken as 9 & 6 respectively to denote the number of squares in the image.
 
-Here is an example of a traffic sign image before and after grayscaling.
+nx = 9
+ny = 6
+```
 
-![alt text][image2]
+I start by preparing `"object points"`, which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  
 
-As a last step, I normalized the image data because ...
+Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
-I decided to generate additional data because ... 
+I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
-To add more data to the the data set, I used the following techniques because ... 
+![Distorted vs undistorted image](assets/image1-1557120372283.png)
 
-Here is an example of an original image and an augmented image:
+### Pipeline (single images)
 
-![alt text][image3]
+#### 1. Provide an example of a distortion-corrected image.
 
-The difference between the original data set and the augmented data set is the following ... 
+Using the distortion correction parameters obtained above I used the follwing line to get an undistorted image shown below:
+![](assets/image2-1557120434334.png)
 
+#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+The section **Declaring functions important for Gradients and Color transforms** has the functions for performing different image transforms and masks. The code significantly self explanatory. However, they are explained briefly below:
 
-My final model consisted of the following layers:
+- `get_thresholded_image(img)` Function to do the undistortion, conversion to grayscale and creating a mask based on pixel threshold
 
-| Layer         		|     Description	        					|
-|:---------------------:|:---------------------------------------------:|
-| Input         		| 32x32x3 RGB image   							|
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+  - `cv2.undistort(img, cameraMatrix, distortionCoeffs, None, cameraMatrix)`
+  - `cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)`
+  -  `mask = np.zeros_like(color_combined)`
 
+- `abs_sobel_thresh(gray, orient='x', thresh_min=0, thresh_max=255)` 
 
+  - ```python
+     if orient == 'x':
+            sobel = cv2.Sobel(gray, cv2.CV_64F, 1, 0)
+        else:
+            sobel = cv2.Sobel(gray, cv2.CV_64F, 0, 1)
+    ```
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+- `dir_threshold(gray, sobel_kernel=3, thresh=(0, np.pi/2))`
 
-To train the model, I used an ....
+The following image is an example when the above filters are applied.
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+![](assets/Screenshot from 2019-05-06 02-45-18.png)
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+To obtain the perspective transform OpenCV's `cv2.warpPerspective(thresholded, M, img_size , flags=cv2.INTER_LINEAR)` function is used. For which the source and destination points are chosen as explained below.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+```python
+# Vertices extracted manually for performing a perspective transform
 
+bottom_left = [200,720]
+bottom_right = [1110, 720]
+top_left = [570, 470]
+top_right = [722, 470]
+```
 
-### Test a Model on New Images
+```python
+source = np.float32([bottom_left,bottom_right,top_right,top_left])
+```
 
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+```python
+# Destination points are chosen such that straight lanes appear more or less parallel in the transformed image.
 
-Here are five German traffic signs that I found on the web:
+bottom_left = [320,720]
+bottom_right = [920, 720]
+top_left = [320, 1]
+top_right = [920, 1]
+```
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+This resulted in the following source and destination points:
 
-The first image might be difficult to classify because ...
+| Point        |  Source   | Destination |
+| ------------ | :-------: | :---------: |
+| bottom_left  |  200,720  |   320,720   |
+| bottom_right | 1110, 720 |  920, 720   |
+| top_left     | 570, 470  |   320, 1    |
+| top_right    | 722, 470  |   920, 1    |
 
-#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-Here are the results of the prediction:
+![alt text][image4]
 
-| Image			        |     Prediction	        					|
-|:---------------------:|:---------------------------------------------:|
-| Stop Sign      		| Stop sign   									|
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+After performing color thresholding:
 
+![](assets/image2-1557125794339.png)
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+To get the final second degree polynomial for the lanes, I had to perform multiple steps.
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+To begin with, a histogram was created from the bottom half of the image to get the lane starting as shown below.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+```python
+histogram = np.sum(warped[warped.shape[0]//2:,:], axis=0)
 
-| Probability         	|     Prediction	        					|
-|:---------------------:|:---------------------------------------------:|
-| .60         			| Stop sign   									|
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+# Peak in the first half indicates the likely position of the left lane
 
+half_width = np.int(histogram.shape[0]/2)
+leftx_base = np.argmax(histogram[:half_width])
 
-For the second image ... 
+# Peak in the second half indicates the likely position of the right lane
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+rightx_base = np.argmax(histogram[half_width:]) + half_width
+
+plt.plot(histogram)
+print("The base of the lines are for LEFT LINE:",leftx_base,"pixels & for Right Line:", rightx_base, "pixels")
+```
+
+![Histogram](assets/image.png)
+
+Then the whole image was divided into 10 windows to perform a sliding window search.
+
+```python
+num_windows = 10
+num_rows = warped.shape[0]
+window_height = np.int(num_rows/num_windows)
+window_half_width = 70
+```
+
+A sliding window search is done per window in vertical direction. If there is a significant change in the sum of pixels in vertical direction the bounding box`(represented in green)` is shifter per consecutive window. Till it is done on the whole image. 
+
+**NOTE: This is only performed on first frame.**
+
+![](assets/image-1557126862324.png)
+
+Based on the center of the bounding boxes,  `np.polyfit(right_y, right_x, 2)` is executed to get the second order polynomial function for the **first frame** as shown below.
+
+![alt text][image5]
+
+For the consecutive frames the lane is searched only in  `+/- 40 pixels`, as shown below.
+
+![](assets/image-1557127353856.png)
+
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+
+The radius is computed using the following formula
+
+![](assets/r-1557127541668.png)
+
+The following code performs the calculation of radius.
+
+```python
+def measure_radius_of_curvature(x_values):
+    ym_per_pix = 30/720 # meters per pixel in y dimension
+    xm_per_pix = 3.7/700 # meters per pixel in x dimension
+    # If no pixels were found return None
+    y_points = np.linspace(0, num_rows-1, num_rows)
+    y_eval = np.max(y_points)
+
+    # Fit new polynomials to x,y in world space
+    fit_cr = np.polyfit(y_points*ym_per_pix, x_values*xm_per_pix, 2)
+    curverad = ((1 + (2*fit_cr[0]*y_eval*ym_per_pix + fit_cr[1])**2)**1.5) / 	np.absolute(2*fit_cr[0])
+    return curverad
+```
+
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+
+Everything mentioned above is boxed in a function called `pipeline_final(img)` that takes in an image and  perform the lane detection, as shown below:
+
+![Final Image test](assets/image-1557128052550.png)
+
+------
+
+### Pipeline (video)
+
+##### [Original project video](./video_output_final/project_video_output.mp4)
+
+##### [Challenge video](./video_output_final/challenge_video_output.mp4)
+
+##### [Harder Challenge video](./video_output_final/harder_challenge_video_output.mp4)
+
+------
+
+### Discussion
+
+To begin with I would like to thank Udacity team for compiling everything in such an amazing tutorial. Following are my take on the overall project.
+
+- When I begun this project. I had rough idea of what to do from the previous lane finding project, however this one is far more robust than that. However, since this is still just OpenCV based, it requires a lots of parameter tweaking to get a satisfactory result.
+
+- The camera distortion looks like have no effect on the final video output. This might be because the videos are taken from a different camera than the camera used to take the chess board images.
+
+- **NOTE** there is difference between importing the image from OpenCV and MatplotLib. This was evident while saving the images, I wasted a lot of time why my images were coming as if I was color blind :p
+
+- The perspective transform is more or less hard-coded which made the code less robust.
+
+- The parameters like window_half_width and finding the lane in next from in +/- 40 pixels are the main cause of failure of the code in the harder challenge video. This is due to the fact that the lane curvature is suddenly going over 45 degrees, which the system cannot adjust for. One way to get the results is to use the Convolution based approach as explained in one of the lectures. 
+
+- However, this is also caused by the fact that I am averaging the output over 12 frames. Which makes the code less susceptible for sudden changes but, causes the system to fail in sharp turns as in harder challenge.
+
+- One more cause of failure is that the lanes in the harder challenge almost bend to 90 degrees; the Sobel filter that I have applied works only for lanes that are more or less vertical. This is shown in the figure below: 
+  **As you can see that the turn is almost horizontal, and the Sobel filter should fail in such case.**
+
+  ![Harder challenge video](assets/image-1557129905441.png)
+
+The code was tested on the following specifications
+
+- **CPU:** `Intel(R) Core(TM) i9-8950HK CPU @ 4.8 Ghz`
+- **GPU:** `Nvidia GeForce GTX 1050 Ti Mobile`
+- **OS:** `Ubuntu 16.04.6 LTS (Xenial Xerus)` 
+- **Kernal:** `4.15.0-48-generic`
+
+To get a frame rate of ~11 FPS (without distortion correction)
+
+[//]: #	"Image References"
+[image1]: ./camera_cal/calibration1.jpg	"Undistorted"
+[image2]: ./test_images/test1.jpg	"Road Transformed"
+[image3]: ./examples/binary_combo_example.jpg	"Binary Example"
+[image4]: ./examples/warped_straight_lines.jpg	"Warp Example"
+[image5]: ./examples/color_fit_lines.jpg	"Fit Visual"
+[image6]: ./examples/example_output.jpg	"Output"
+[video1]: ./project_video.mp4	"Video"
+
 
 
