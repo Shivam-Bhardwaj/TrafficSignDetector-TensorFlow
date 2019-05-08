@@ -148,6 +148,14 @@ signs data set:
 | 41      | End of no passing                                  |
 | 42      | End of no passing by vehicles over 3.5 metric tons |
 
+**The following image corresponds to images of one sign per ClassId**
+
+![ClassID vs Images](assets/image-1557299578417.png)
+
+**The following image is the distribution of number of images per class**
+
+![](assets/image-1557299696616.png)
+
 ------
 
 ### Testing parameters
