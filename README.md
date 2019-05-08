@@ -100,6 +100,8 @@ signs data set:
 - The shape of a traffic sign image is (32, 32, 3)
 - The number of unique classes/labels in the data set is 43
 
+**The following table as all the sign names with their corresponding ClassID**
+
 | ClassId | SignName                                           |
 | ------- | -------------------------------------------------- |
 | 0       | Speed limit (20km/h)                               |
