@@ -5,6 +5,8 @@
 
 The following project is a part of Udacity’s Self Driving car engineering NanoDegree program. The aim of project is to successfully classify traffic sign from German Traffic sign dataset having 43 classes.
 
+------
+
 The Project
 ---
 
@@ -18,6 +20,8 @@ The steps of this project are the following:
 * Testing the network on random images.
 * Showing the Top 5 Softmax Probabilities For Each Image Found on the Web.
 
+------
+
 ## Prerequisites
 
 - Pip 
@@ -29,15 +33,41 @@ The steps of this project are the following:
 `open terminal`
 
 ```bash
-$ git clone https://github.com/Shivam-Bhardwaj/AdvanceLaneFinding.git
+$ git clone https://github.com/Shivam-Bhardwaj/TrafficSignDetector-TensorFlow.git
 $ virtualenv --no-site-packages -p python3 venv 
 $ source venv/bin/activate
-$ cd AdvanceLaneFinding
+$ cd TrafficSignDetector-TensorFlow
 $ pip install -r requirements.txt
 $ jupyter notebook
 ```
 
-`open FinalCode.ipnyb`
+`open Traffic_Sign_Classifier.ipnyb`
+
+------
+
+## Downloading dataset
+
+**You don't have to think about the dataset. My code does everything for you :)** 
+
+The code under `Step 0: Load The Data` does the following:
+
+1. Download the dataset in an external folder.
+
+2. Unzip the dataset.
+
+3. Delete the original Zip file as it is no longer required.
+
+4. Load the data in Pickle format.
+
+5. Save the data in 
+
+   ```python
+   X_train, y_train # For training data and labels
+   X_valid, y_valid # For validation data and labels
+   X_test, y_test # For Final test data and labels
+   ```
+
+------
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -49,7 +79,7 @@ $ jupyter notebook
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.    
 
-The given README.md file is an extensive writeup of the project. It includes the code folder architecture, resources, test output, Jupyter Notebook etc. For any questions, please contact 
+The given README.md file is an extensive writeup of the project. For any questions, please contact 
 
 Shivam Bhardwaj 
 
@@ -57,7 +87,7 @@ Shivam Bhardwaj
 
 Mail to shivam.bhardwaj@nyu.edu
 
-### Camera Calibration
+### Data Set Summary & Exploration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
