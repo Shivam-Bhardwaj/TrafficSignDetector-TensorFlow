@@ -156,9 +156,73 @@ signs data set:
 
 ![](assets/image-1557299696616.png)
 
+#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+
+The visual representation of my model is shown below:
+
+![](assets/nn (1).svg)
+
+My final model consisted of the following layers:
+
+|      Layer      |                 Description                 |
+| :-------------: | :-----------------------------------------: |
+|      Input      |              32x32x3 RGB image              |
+| Convolution 3x3 | 1x1 stride, valid padding, outputs 30x30x15 |
+|      RELU       |                      -                      |
+|   Max pooling   |        2x2 stride,  outputs 15@15x15        |
+| Convolution 3x3 | 1x1 stride, valid padding, outputs 30@13x13 |
+|      RELU       |                      -                      |
+|   Max pooling   |         2x2 stride,  outputs 30@6x6         |
+| Fully Connected |                    1080                     |
+| Fully Connected |                     500                     |
+| Fully Connected |                     280                     |
+| Fully Connected |                     110                     |
+| Fully Connected |                     42                      |
+
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyper-parameters such as learning rate.
+
+To train the model, I used 
+
+```python
+RATE = 0.003
+EPOCHS = 40
+BATCH_SIZE = 512
+DROPOUT = 0.5
+```
 
 
-------
+
+#### 4. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+My final model results were:
+
+- training set accuracy of 99.9%
+- validation set accuracy of 97.9% 
+- test set accuracy of 96.4%
+
+### Test a Model on New Images
+
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+
+Here are few German traffic signs that I found on the web:
+
+![](assets/image-1557662770955.png)
+
+The above images are given that particular name as first two letter denotes the class of the image.
+
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+
+Here are the results of the prediction:
+
+![](assets/Screenshot from 2019-05-12 08-08-12.png)
+
+The model was able to correctly guess 6 of the 8 traffic signs, which gives an accuracy of 75%. 
+
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. ![](assets/Screenshot from 2019-05-12 08-11-42.png)**The following image is the probability distribution of top 5 Soft-Max probability of every test image.**
+
+![](assets/Screenshot from 2019-05-12 08-12-38.png)
+
+
 
 ### Testing parameters
 
@@ -169,16 +233,5 @@ The code was tested on the following specifications
 - **OS:** `Ubuntu 16.04.6 LTS (Xenial Xerus)` 
 - **Kernal:** `4.15.0-48-generic`
 
-Training for 50 epochs takes  ~ 80 Sec
-
-[//]: #	"Image References"
-[image1]: ./camera_cal/calibration1.jpg	"Undistorted"
-[image2]: ./test_images/test1.jpg	"Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg	"Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg	"Warp Example"
-[image5]: ./examples/color_fit_lines.jpg	"Fit Visual"
-[image6]: ./examples/example_output.jpg	"Output"
-[video1]: ./project_video.mp4	"Video"
-
-
+Training for 40 epochs takes  ~ 80 Sec
 
