@@ -197,7 +197,7 @@ DROPOUT = 0.5
 My final model results were:
 
 - training set accuracy of **99.9%**
-- validation set accuracy of **97.9%** 
+- validation set accuracy of **98.0%** 
 - test set accuracy of **96.4%**
 
 **The following image is the time distribution of the accuracy**
