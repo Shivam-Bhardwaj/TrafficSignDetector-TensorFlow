@@ -177,7 +177,7 @@ My final model consisted of the following layers:
 | Fully Connected |                     500                     |
 | Fully Connected |                     280                     |
 | Fully Connected |                     110                     |
-| Fully Connected |                     42                      |
+| Fully Connected |                     43                      |
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyper-parameters such as learning rate.
 
@@ -196,9 +196,13 @@ DROPOUT = 0.5
 
 My final model results were:
 
-- training set accuracy of 99.9%
-- validation set accuracy of 97.9% 
-- test set accuracy of 96.4%
+- training set accuracy of **99.9%**
+- validation set accuracy of **97.9%** 
+- test set accuracy of **96.4%**
+
+**The following image is the time distribution of the accuracy**
+
+![](assets/Screenshot from 2019-05-12 08-18-32.png)
 
 ### Test a Model on New Images
 
@@ -235,3 +239,8 @@ The code was tested on the following specifications
 
 Training for 40 epochs takes  ~ 80 Sec
 
+### Discussion 
+
+I really loved the concept of CNN. Thanks Udacity for the tutorials.
+
+I didn't use any data augmentation technique in this particular notebook, as I was already getting 98 % accuracy. However, I did play with the, and got good results.
