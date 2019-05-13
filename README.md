@@ -156,6 +156,22 @@ signs data set:
 
 ![](assets/image-1557299696616.png)
 
+#### Preprocessing the images.
+
+The above dataset is preprocessed first, before feeding into the neural network. This is done on 2 steps.
+
+1. **Converting the image in Grayscale.**
+
+   This makes the further operations easier as now a 3D image is reduce to a 2D image.
+
+2. **Applying normalization to the data.**
+
+   This enhances the features in the image.
+
+In the following diagram, the image before and after preprocessing is shown.
+
+![](assets/image-1557747780216.png)
+
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 The visual representation of my model is shown below:
