@@ -205,6 +205,8 @@ Then, the first thing I tried was increasing the features in the first layer and
 
 Then I tried to make the model even deeper. This too came to be useful as the number of overall parameters are increased.
 
+In case of Dropouts, 0.5 and 0.6 gave me the best results. 0.2, even after 35 epochs gave me 0.23 accuracy. A dropout of 0.8  gave me around 0.85 validation accuracy in just 8 epochs. However, it maxed out to 0.91 validation accuracy.
+
 Lastly, I played with learning rate. I tried 0.001, 0.0001 and other variations in between. And got good results with 0.003.
 
 Changing batch size increased and decreased the training time as expected hence I chose 512 which gave me the best of time and accuracy.
