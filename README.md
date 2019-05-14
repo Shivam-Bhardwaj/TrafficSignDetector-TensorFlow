@@ -195,6 +195,22 @@ My final model consisted of the following layers:
 | Fully Connected |                     110                     |
 | Fully Connected |                     43                      |
 
+**Discussion on the model architecture**
+
+At first I tried the original LeNet architecture. It didn't render the validation accuracy of 0.93 as mentioned in the project rubric. 
+
+I tried to take the RGB image as it is by changing the input size of the first convolution layer to 3 from 1. But it didn't give me satisfactory results as well.
+
+Then, the first thing I tried was increasing the features in the first layer and reducing the kernal size of convolution. This allowed my model to gather much more features than before. This suddenly gave my model an accuracy over 0.93.
+
+Then I tried to make the model even deeper. This too came to be useful as the number of overall parameters are increased.
+
+Lastly, I played with learning rate. I tried 0.001, 0.0001 and other variations in between. And got good results with 0.003.
+
+Changing batch size increased and decreased the training time as expected hence I chose 512 which gave me the best of time and accuracy.
+
+**NOTE** apart from running it on my GPU. I used Paperspace GPU instance too, to play with the hyper parameters. I was not able to run a GPU enabled AWS instance using SageMaker.
+
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyper-parameters such as learning rate.
 
 To train the model, I used 
