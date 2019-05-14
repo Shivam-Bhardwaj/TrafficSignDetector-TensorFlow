@@ -260,7 +260,19 @@ The model was able to correctly guess 6 of the 8 traffic signs, which gives an a
 
 ![](assets/Screenshot from 2019-05-12 08-12-38.png)
 
+**Discussion of model testing on new images**
 
+In all my testing, I observed that Speed limit 100 was one of the most difficult to classify. I feel this is due to the presence of multiple features that are quite common in the dataset. These features include, straight lines and multiple circles.
+
+I also feel that the pole at the bottom causes the issue as in most of the images in the dataset the pole is either too short or quite blurred to cause a significant issue.
+
+The following images are evidence for the above hypothesis:
+
+![1557825380859](assets/1557825380859.png)
+
+![1557825411013](assets/1557825411013.png)
+
+As you can see in the above two images with and without pole. The soft-max probabilities changes significantly even when the image is same. 
 
 ### Testing parameters
 
