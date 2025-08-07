@@ -3,7 +3,9 @@
     "allow": [
       "Bash(find:*)",
       "Bash(dir:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(python:*)"
     ],
     "deny": []
   }

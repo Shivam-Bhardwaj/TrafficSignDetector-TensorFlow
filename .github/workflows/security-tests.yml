@@ -40,6 +40,10 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov pytest-timeout coverage bandit safety
     
+    - name: Check for emojis in codebase
+      run: |
+        python check_no_emojis.py
+    
     - name: Run security utilities tests
       run: |
         python -m pytest tests/test_security_utils.py -v --tb=short
