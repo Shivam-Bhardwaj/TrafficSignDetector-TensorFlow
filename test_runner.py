@@ -71,6 +71,7 @@ class ColoredTextTestResult(unittest.TextTestResult):
         self.success_count = 0
         self.start_time = None
         self.test_results = []
+        self.verbosity = verbosity
     
     def startTest(self, test):
         super().startTest(test)
@@ -159,13 +160,13 @@ class TestSuiteRunner:
         
         if self.args.security or not any([self.args.performance, self.args.fast]):
             # Security and utility tests
-            suites['Security Utils'] = unittest.TestLoader().loadTestsFromName('test_security_utils')
-            suites['Model Security'] = unittest.TestLoader().loadTestsFromName('test_secure_model')
-            suites['Security Comprehensive'] = unittest.TestLoader().loadTestsFromName('test_security_comprehensive')
+            suites['Security Utils'] = unittest.TestLoader().loadTestsFromName('tests.test_security_utils')
+            suites['Model Security'] = unittest.TestLoader().loadTestsFromName('tests.test_secure_model')
+            suites['Security Comprehensive'] = unittest.TestLoader().loadTestsFromName('tests.test_security_comprehensive')
         
         if self.args.performance or not any([self.args.security, self.args.fast]):
             # Performance tests
-            suites['Performance & Stress'] = unittest.TestLoader().loadTestsFromName('test_performance_stress')
+            suites['Performance & Stress'] = unittest.TestLoader().loadTestsFromName('tests.test_performance_stress')
         
         return suites
     
