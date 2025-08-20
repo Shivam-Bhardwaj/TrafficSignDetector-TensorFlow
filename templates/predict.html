@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Predict Traffic Sign</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Upload an Image</h1>
+        <a href="{{ url_for('home') }}" class="btn-home">Home</a>
+    </header>
+
+    <main>
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flashes">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% if top5 %}
+        <section class="results">
+            <h2>Top 5 Predictions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sign Name</th>
+                        <th>Probability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for label, prob in top5 %}
+                    <tr>
+                        <td>{{ label }}</td>
+                        <td>{{ prob }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>Powered by TensorFlow & Flask</p>
+    </footer>
+</body>
+</html>

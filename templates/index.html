@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Sign Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Traffic Sign Classifier</h1>
+        <p>Upload an image and get the top-5 predicted traffic signs.</p>
+    </header>
+
+    <main>
+        <section class="hero">
+            <a href="{{ url_for('predict') }}" class="btn">Start Classifying</a>
+        </section>
+
+        <section class="info">
+            <h2>How it works</h2>
+            <ol>
+                <li>Click <strong>Start Classifying</strong>.</li>
+                <li>Upload an image (png, jpg, jpeg, bmp, tiff).</li>
+                <li>View the top-5 traffic sign predictions with confidence scores.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>Powered by TensorFlow & Flask</p>
+    </footer>
+</body>
+</html>

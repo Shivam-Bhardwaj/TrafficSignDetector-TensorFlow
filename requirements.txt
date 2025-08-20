@@ -1,62 +1,7 @@
-# Updated requirements.txt - Security patched versions
-# Machine Learning Core
-tensorflow>=2.15.0
-numpy>=1.24.0
-scikit-learn>=1.3.0
-scipy>=1.11.0
-pandas>=2.1.0
-
-# Image Processing
-opencv-python>=4.8.0
-Pillow>=10.0.0
-imageio>=2.31.0
-matplotlib>=3.7.0
-
-# Jupyter and Notebook
-jupyter>=1.0.0
-notebook>=7.0.0
-ipython>=8.15.0
-ipykernel>=6.25.0
-ipywidgets>=8.1.0
-nbconvert>=7.8.0
-nbformat>=5.9.0
-
-# Web Security
-bleach>=6.0.0
-Jinja2>=3.1.2
-tornado>=6.3.0
-Werkzeug>=2.3.0
-
-# Data Serialization (Secure alternatives)
-joblib>=1.3.0
-h5py>=3.9.0
-
-# Network Security
-requests>=2.31.0
-urllib3>=2.0.0
-certifi>=2023.7.22
-
-# YAML Security
-PyYAML>=6.0.1
-
-# General Dependencies
-tqdm>=4.66.0
-plotly>=5.16.0
-python-dateutil>=2.8.2
-pytz>=2023.3
-six>=1.16.0
-
-# Development Tools
-pytest>=7.4.0
-black>=23.7.0
-flake8>=6.0.0
-
-# Remove deprecated/unnecessary packages:
-# - tensorflow-gpu (integrated into tensorflow>=2.0)
-# - tensorflow-estimator (integrated)
-# - Keras-* (integrated into tensorflow)
-# - pickleshare (replaced with joblib)
-# - sklearn (meta-package, use scikit-learn)
-# - mock (use unittest.mock from stdlib)
-# - keyboard (potential security risk)
-# - moviepy (not needed for traffic sign classification)
+Flask==3.0.0
+tensorflow==2.16.1
+opencv-python-headless==4.8.0.76
+pandas==2.0.3
+numpy==1.24.3
+Werkzeug==2.3.7
+h5py==3.10.0

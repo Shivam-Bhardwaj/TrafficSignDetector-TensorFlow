@@ -1,0 +1,71 @@
+<h1>Traffic Sign Detector Tutorial</h1>
+
+<p>This tutorial provides a step-by-step guide to setting up, training, and using the traffic sign detector.</p>
+
+<h2>1. Introduction</h2>
+
+<p>This project is a deep learning application that classifies German traffic signs. It uses a Convolutional Neural Network (CNN) built with TensorFlow.</p>
+
+<h2>2. Setup and Installation</h2>
+
+<h3>Prerequisites</h3>
+
+<ul>
+<li>Pip </li>
+<li>Python 3</li>
+<li>Virtual Environment</li>
+</ul>
+
+<h3>Install instructions</h3>
+
+<p><code>open terminal</code></p>
+
+<p><code>bash
+$ git clone https://github.com/Shivam-Bhardwaj/TrafficSignDetector-TensorFlow.git
+$ cd TrafficSignDetector-TensorFlow
+$ virtualenv --no-site-packages -p python3 venv 
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+</code></p>
+
+<h2>3. Running the Project</h2>
+
+<p>There are two main ways to use this project:</p>
+
+<ol>
+<li><strong>Train the model from the command line.</strong></li>
+<li><strong>Use the web application for predictions.</strong></li>
+</ol>
+
+<h3>Option 1: Train the Model</h3>
+
+<p>The <code>run_traffic_classifier.py</code> script allows you to train the model directly.</p>
+
+<ol>
+<li><p><strong>Train the model with default settings:</strong>
+<code>bash
+python run_traffic_classifier.py
+</code>
+This will download the dataset, train the model for 10 epochs, and save it as <code>lenet.keras</code>.</p></li>
+<li><p><strong>See available training options:</strong>
+<code>bash
+python run_traffic_classifier.py --help
+</code></p></li>
+</ol>
+
+<h3>Option 2: Use the Web Application</h3>
+
+<p>The <code>app.py</code> script launches a Flask web server, allowing you to upload images and see predictions.</p>
+
+<ol>
+<li><p><strong>Make sure the trained model exists.</strong> You must have a <code>lenet.keras</code> file in the root directory. If not, train the model first (see Option 1).</p></li>
+<li><p><strong>Run the web application:</strong>
+<code>bash
+python app.py
+</code></p></li>
+<li><p><strong>Open your web browser</strong> and go to <code>http://127.0.0.1:5000</code> to use the classifier.</p></li>
+</ol>
+
+<h2>4. Understanding the Code</h2>
+
+<p>This section will provide an overview of the project's structure and key scripts.</p>
